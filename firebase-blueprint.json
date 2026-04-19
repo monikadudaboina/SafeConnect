@@ -1,0 +1,61 @@
+{
+  "entities": {
+    "Incident": {
+      "title": "Crisis Incident",
+      "description": "Represents an active emergency or crisis event.",
+      "type": "object",
+      "properties": {
+        "type": { "type": "string", "description": "e.g., Fire, Medical, Security, Smoke" },
+        "severity": { "type": "integer", "description": "1-10 scale" },
+        "location": { "type": "string", "description": "Room number or GPS coordinates" },
+        "description": { "type": "string", "description": "Raw report or triaged summary" },
+        "status": { "type": "string", "enum": ["active", "pending", "resolved"] },
+        "reportedBy": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "updatedAt": { "type": "string", "format": "date-time" },
+        "aiSummary": { "type": "string", "description": "Gemini-generated incident context" }
+      },
+      "required": ["type", "severity", "location", "status", "createdAt"]
+    },
+    "Message": {
+      "title": "Communication Message",
+      "description": "A message sent within an incident's comms hub.",
+      "type": "object",
+      "properties": {
+        "text": { "type": "string" },
+        "senderId": { "type": "string" },
+        "senderName": { "type": "string" },
+        "senderType": { "type": "string", "enum": ["guest", "staff", "responder", "system"] },
+        "timestamp": { "type": "string", "format": "date-time" },
+        "translation": { "type": "string" }
+      },
+      "required": ["text", "senderId", "timestamp"]
+    },
+    "Staff": {
+      "title": "Staff Member",
+      "description": "Hospitality staff details.",
+      "type": "object",
+      "properties": {
+        "name": { "type": "string" },
+        "role": { "type": "string" },
+        "status": { "type": "string", "enum": ["available", "on_task", "offline"] },
+        "location": { "type": "string" }
+      },
+      "required": ["name", "role", "status"]
+    }
+  },
+  "firestore": {
+    "/incidents/{incidentId}": {
+      "schema": "Incident",
+      "description": "Main collection for crisis incidents."
+    },
+    "/incidents/{incidentId}/messages/{messageId}": {
+      "schema": "Message",
+      "description": "Communication logs for a specific incident."
+    },
+    "/staff/{staffId}": {
+      "schema": "Staff",
+      "description": "Staff roster and availability."
+    }
+  }
+}

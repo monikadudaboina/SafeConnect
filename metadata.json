@@ -1,0 +1,14 @@
+{
+  "name": "SafeConnect UCME",
+  "description": "Unified Crisis Management Ecosystem for hospitality. Bridges guests, staff, and first responders via AI-powered triage and real-time alerts.",
+  "requestFramePermissions": [
+    "microphone",
+    "geolocation"
+  ],
+  "majorCapabilities": [
+    "AI Triage",
+    "Real-time Dashboard",
+    "Emergency SOS",
+    "Multilingual Support"
+  ]
+}
